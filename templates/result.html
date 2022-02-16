@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:cursor="http://www.w3.org/1999/xhtml">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>APLIKASI SEGMENTASI PELANGGAN K-MEANS MODEL RFM</title>
+
+  <!-- Custom fonts for this template -->
+  <link href="../static/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../static/bootstrap/css/sb-admin-2.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this page -->
+  <link href="../static/bootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <!-- Semantic here -->
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+
+            
+
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-900 middle"><b>POLITEKNIK POS INDONESIA</b></span>
+                <img src="../static/image/logo.png" width="73" height="84" style="margin-top: 25px">
+              </a>
+              <!-- Dropdown - User Information -->
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                  <!-- <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> -->
+                  Oleh : Fanny - Politeknik Pos Indonesia, 2021
+                </a>
+              </div>
+            </li>
+
+          </ul>
+
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-body">
+              <div class="table-responsive">
+                
+                <!-- Style custom -->
+              <style>
+                <meta charset="utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <title>Page Perhitungan</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <link rel="stylesheet" type="text/css" media="screen" href="../static/main.css">
+                <script src="../static/main.js"></script>
+                </head>table {
+                  font-family: arial, sans-serif;
+                  border-collapse: collapse;
+                  width: 100%;
+                }
+
+                td, th {
+                  border: 0px solid #dddddd;
+                  text-align: center;
+                  padding: 8px;
+                }
+
+                tr:nth-child(even) {
+                  background-color: #dddddd;
+                }
+              </style>
+
+              {% if res_output==0 %}
+              <table>
+                  <div align="center" class="alert alert-danger" role="alert">
+                       <b>{{ error_str }}<b>
+                  </div>
+                  <div align="center">
+                      <a class="small" href="/"><i class="fas fa-arrow-alt-circle-right"></i>&nbsp;&nbsp;
+                        <b>Kembali ke Halaman Input</b></a>
+                    </div>
+                  <hr>
+              </table>
+              {% endif %}
+
+               {% if res_output==1 %}
+              <table>
+                  <div class="text-center">
+                    <h1 class="h2 text-gray-900">{{ title }}</h1>
+                     <div align="center">
+                      <i class="fas fa-file"></i>&nbsp;&nbsp;
+                        <b>File Dataset : {{ filename }}</b>
+                    </div>
+                    <div align="right">
+                      <a class="small" href="/"><i class="fas fa-arrow-alt-circle-right"></i>&nbsp;&nbsp;
+                        <b>Kembali ke Halaman Input</b></a>
+                    </div><br>
+                  </div>
+
+
+                  <!-- Content Row -->
+                <table></table>
+                  <div align="left" class="alert alert-primary" role="alert" style="overflow-y: scroll; height:400px;">
+                    <h3 class="h4 text-gray-900 mb-4">Pembacaan File Dataset</h3><br>
+                    <div align="left" class="h4 text-gray-900 mb-4" style="font-size:14px">
+                        {{ causes_html }}
+                    </div>
+                  </div>
+                <div align="left" class="alert alert-success" role="alert" style="overflow-y: scroll; height:400px;">
+                  <h3 class="h4 text-gray-900 mb-4">Rincian Deskripsi Dataset</h3><br>
+                  <div align="left" class="h4 text-gray-900 mb-4" style="font-size:14px">
+                    {{ describe_html }}
+                  </div>
+                </div>
+                <div align="left" class="alert alert-info" role="alert" style="overflow-y: scroll; height:400px;">
+                <h3 class="h4 text-gray-900 mb-4">Customer Dataset</h3><br>
+                <div align="left" class="h4 text-gray-900 mb-4" style="font-size:14px">
+                {{ dataset_html }}
+                </div>
+                </div>
+                <div align="left" class="alert alert-success" role="alert" style="overflow-y: scroll; height:400px;">
+                 <h3 class="h4 text-gray-900 mb-4">Transformasi Data</h3><br>
+                <div align="left" class="h4 text-gray-900 mb-4" style="font-size:14px">
+                {{ customer_html }}
+                </div>
+                </div>
+                <div align="left" class="alert alert-warning" role="alert" style="overflow-y: scroll; height:200px;">
+                <h3 class="h4 text-gray-900 mb-4">Mean dan Standar Deviasi</h3><br>
+                <div align="left" class="h4 text-gray-900 mb-4" style="font-size:14px">
+                <b>Mean =</b>{{ mean_str }} <br><br><b>Standar Deviasi =</b>{{ std_str }}
+                </div>
+                </div>
+                <div align="left" class="alert alert-primary" role="alert" style="overflow-y: scroll; height:400px;">
+                  <h3 class="h4 text-gray-900 mb-4">Proses K-Means (Metode Elbow)</h3><br>
+                  <div align="left" class="h4 text-gray-900 mb-4" style="font-size:14px">
+                    <img src='data:image/png;base64,{{ fig1_image }}'/>
+                  </div>
+                  </div>
+                <div align="left" class="alert alert-info" role="alert" style="overflow-y: scroll; height:400px;">
+                   <h3 class="h4 text-gray-900 mb-4">Model K-Means</h3><br>
+                  <div align="left" class="h4 text-gray-900 mb-4" style="font-size:14px">
+                  {{ group_model_html }}
+                  </div>
+                  </div>
+                <div align="left" class="alert alert-primary" role="alert" style="overflow-y: scroll; height:400px;">
+                  <h3 class="h4 text-gray-900 mb-4">Normalized-Melt Data</h3><br>
+                  <div align="left" class="h4 text-gray-900 mb-4" style="font-size:14px">
+                    <img src='data:image/png;base64,{{ fig2_image }}'/>
+                  </div>
+                </div>
+                <div align="left" class="alert alert-success" role="alert" style="overflow-y: scroll; height:400px;">
+                  <h3 class="h4 text-gray-900 mb-4">Hasil Clustering</h3><br>
+                  <div align="left" class="h4 text-gray-900 mb-4" style="font-size:14px">
+                    {{ dataset_model_html }}
+                  </div>
+                </div>
+
+
+                        <div align="right">
+                      <a class="small" href="/"><i class="fas fa-arrow-alt-circle-right"></i>&nbsp;&nbsp;
+                        <b>Kembali ke Halaman Input</b></a>
+                    </div>
+                  
+              </table>
+              <br>
+              {% endif %}
+             </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span><div class="text-gray-900" style="font-size:12px">Copyright &copy; 2021, Flask Python by Fanny</div></span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="../static/bootstrap/vendor/jquery/jquery.min.js"></script>
+  <script src="../static/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="../static/bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="../static/bootstrap/js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="../static/bootstrap/vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="../static/bootstrap/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="../static/bootstrap/js/demo/datatables-demo.js"></script>
+
+      <!-- bootbox code -->
+  <script src="../static/bootstrap/js/bootbox.min.js"></script>
+  <script src="../static/bootstrap/js/bootbox.locales.min.js"></script>
+
+</body>
+
+</html>
